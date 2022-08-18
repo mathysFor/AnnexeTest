@@ -9,36 +9,33 @@ import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 export default function StepOne(props) {
 
 
-const [finish, setFinish] = useState('');
-const [ageFromApi,setAgeFromApi]= useState(0);
-const redux = useSelector((state)=> state ) ;
+  const [finish, setFinish] = useState('');
+  const [ageFromApi,setAgeFromApi]= useState(0);
+  const redux = useSelector((state)=> state ) ;
+  var text ;
 
+
+// ***************************** ASK API & SET STATE ******************************** 
 
 useEffect(() => {
-
     (async () => {
-
-      // ***************************** ASK & SET commercantList ****************************** 
                 var rawResponse = await fetch(`https://api.agify.io?name=${redux.saveUser.firstName}`)
                 rawResponse = await rawResponse.json();
+
                 setAgeFromApi(rawResponse.age)
                 setFinish(true)
-      // ***************************** SET commercantList AVEC adresse en LAT/LNG  ****************************** 
-       
           })(); 
-  
-
-
   }, []);
 
-  var text ;
+// ***************************** CONDITION FOR TEXT CHANGE  ******************************** 
 
   if (ageFromApi < redux.saveUser.age) {
     text =  <h3>You are older than your firstname.. Maybe you are the first " {redux.saveUser.firstName} " ? </h3>
   }else{
     text =  <h3>{redux.saveUser.firstName} existed {ageFromApi - redux.saveUser.age} years before you born, now there is {redux.saveUser.count} {redux.saveUser.firstName} in the world</h3>
-
   }
+
+// ***************************** CONTROL IF LOAD FINISH******************************** 
 
   if(!finish){
     return  <div style={styles.container}>
@@ -46,17 +43,22 @@ useEffect(() => {
            </div>
    
   }else{
+// ***************************** RETURN BLOCK ******************************** 
     return (
 
 <div style={styles.container}>
+
+                                                  {/* ICON GO BACK */}
 <Link to="/StepOne" style={{position:'absolute',top:'40px',left:'40px'}}> <FontAwesomeIcon icon={faArrowCircleLeft}  style={{height:'40px'}}/> </Link> 
+
+            {/* BODY */}
 
           <div style={{marginBottom:'30px'}}>
             {text}
           </div>
-     <div style={{display:'flex', flexDirection:'row'}} >
 
-           <div>
+    <div style={{display:'flex', flexDirection:'row'}} >
+          <div>
             <p style={styles.titre}> <span style={styles.span} >LastName :</span> {redux.saveUser.lastName}</p>
           </div>
           <div>
@@ -68,9 +70,8 @@ useEffect(() => {
           <div>
             <p style={styles.titre}> <span style={styles.span} >Age of your name :</span> {ageFromApi}</p>
           </div>
-            {/* {text} */}
      </div>
-
+                                                {/* LINK GO HOME */}
 <Link to="/StepThree"  style={styles.button} className="btn btn-primary mt-5">Find Origin </Link>
 
 </div>
@@ -78,6 +79,7 @@ useEffect(() => {
   } 
    }
 
+// ***************************** STYLE BLOCK ******************************** 
 
 
    const styles = {
