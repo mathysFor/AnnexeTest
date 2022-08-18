@@ -80,7 +80,7 @@ function sendToStore(firstName,lastName) {
             placeholder='Doe'
             style={styles.input}
              onChange={(e) => {
-                setLastName(e.target.value)
+                setLastName(e.target.value.toUpperCase())
                 verif()
             }} 
              value={lastName}/>

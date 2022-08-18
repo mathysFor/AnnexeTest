@@ -13,26 +13,22 @@ var newUser = {
 return newUser
 },
 
-  setUserWithApi : (state, action) => {
-    var newUser = {
-    firstName: action.payload.firstName,
-    lastName: action.payload.lastName,
-    gender: action.payload.gender,
-    probability: action.payload.probability,
-    
-}
-return newUser
-  },
-
   setUserFinish : (state, action) =>{
-    var newUser = {
-    firstName: action.payload.firstName,
-    lastName: action.payload.lastName,
-    gender: action.payload.gender,
-    probability: action.payload.probability,
-    age: action.payload.age,
-}
 
+    var newUser = state;
+     newUser.count = action.payload.count ;
+     newUser.gender = action.payload.gender ;
+     newUser.probability = action.payload.probability ;
+     newUser.age = action.payload.age ;
+
+     return newUser
+
+},
+
+  setOrigin : (state, action) =>{
+    var  newUser = state 
+    newUser.origin = action.payload.origin
+    
 return newUser
   }
 

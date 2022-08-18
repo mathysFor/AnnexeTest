@@ -31,6 +31,15 @@ useEffect(() => {
 
   }, []);
 
+  var text ;
+
+  if (ageFromApi < redux.saveUser.age) {
+    text =  <h3>You are older than your firstname.. Maybe you are the first " {redux.saveUser.firstName} " ? </h3>
+  }else{
+    text =  <h3>{redux.saveUser.firstName} existed {ageFromApi - redux.saveUser.age} years before you born, now there is {redux.saveUser.count} {redux.saveUser.firstName} in the world</h3>
+
+  }
+
   if(!finish){
     return  <div style={styles.container}>
           <Loader size="lg" content="Loading" />
@@ -42,32 +51,27 @@ useEffect(() => {
 <div style={styles.container}>
 <Link to="/StepOne" style={{position:'absolute',top:'40px',left:'40px'}}> <FontAwesomeIcon icon={faArrowCircleLeft}  style={{height:'40px'}}/> </Link> 
 
+          <div style={{marginBottom:'30px'}}>
+            {text}
+          </div>
      <div style={{display:'flex', flexDirection:'row'}} >
-       <div style={{display:'flex', flexDirection:'column'}}>
-     
-          <div>
-            <p style={styles.titre}> <span style={{fontSize: '20px'}}>FirstName :</span> {redux.saveUser.firstName}</p>
+
+           <div>
+            <p style={styles.titre}> <span style={styles.span} >LastName :</span> {redux.saveUser.lastName}</p>
           </div>
           <div>
-            <p style={styles.titre}> <span style={{fontSize: '20px'}}>Gender :</span> {redux.saveUser.gender}</p>
-          </div>
-      
-      </div>
-           
-    
-          <div>
-            <p style={styles.titre}> <span style={{fontSize: '20px'}}>lastName :</span> {redux.saveUser.lastName}</p>
+            <p style={styles.titre}> <span style={styles.span} >Gender :</span> {redux.saveUser.gender}</p>
           </div>
           <div>
-            <p style={styles.titre}> <span style={{fontSize: '20px'}}>Age :</span> {redux.saveUser.age}</p>
+            <p style={styles.titre}> <span style={styles.span} >Your Age :</span> {redux.saveUser.age}</p>
           </div>
           <div>
-            <p style={styles.titre}> <span style={{fontSize: '20px'}}>Age of your name :</span> {ageFromApi}</p>
+            <p style={styles.titre}> <span style={styles.span} >Age of your name :</span> {ageFromApi}</p>
           </div>
-            
+            {/* {text} */}
      </div>
 
-<Link to="/StepTwo"  style={styles.button} className="btn btn-primary mt-5">Next</Link>
+<Link to="/StepThree"  style={styles.button} className="btn btn-primary mt-5">Find Origin </Link>
 
 </div>
     )
@@ -91,6 +95,8 @@ useEffect(() => {
     },
     titre : {
       margin : '20px',
+      fontSize : '20px',
+
   },
   input : {
 
@@ -102,6 +108,11 @@ useEffect(() => {
     marginLeft:'20px',
     marginTop:'35px'
 
+},
+span :{
+
+  fontSize: '20px',
+  fontWeight:'bold'
 },
 button : {
   width: '150px'

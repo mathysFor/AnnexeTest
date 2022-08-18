@@ -5,15 +5,14 @@ import { useSelector,useDispatch } from 'react-redux';
 import { Loader } from 'rsuite'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function StepOne() {
 
-const [gender, setGender] = useState('');
-const [probability, setProbability] = useState('');
-const [finish, setFinish] = useState('');
-const [count, setCount] = useState('');
+const [origin, setOrigin] = useState('');
 
-const [age,setAge ]= useState(0)
+const [finish, setFinish] = useState('');
 const dispatch = useDispatch() ;
 const redux = useSelector((state)=> state ) ;
 
@@ -21,12 +20,10 @@ useEffect(() => {
 
     (async () => {
 // ***************************** ASK & SET API ******************************** 
-          var rawResponse = await fetch(`https://api.genderize.io?name=${redux.saveUser.firstName}`)
+          var rawResponse = await fetch(`https://api.nationalize.io?name=${redux.saveUser.firstName}`)
           rawResponse = await rawResponse.json();
 
-          setGender(rawResponse.gender.toUpperCase())
-          setProbability(rawResponse.probability)
-          setCount(rawResponse.count)
+          setOrigin(rawResponse.country[0].country_id)
           setFinish(true)
 // ***************************** SEND to REDUX store  ******************************** 
          
@@ -34,20 +31,6 @@ useEffect(() => {
     })(); 
   }, []);
 
-
- 
-function sendToStore(age) {    
-  dispatch({
-    type:'user/setUserFinish',
-    payload: {                    
-        gender:gender,
-        probability:probability,
-        count:count,
-        age:age
-
-    }
-   }) 
-}
 
   if(!finish){
     return  <div style={styles.container}>
@@ -62,31 +45,19 @@ function sendToStore(age) {
 
      <div style={{display:'flex', flexDirection:'row'}} >
        <div style={{display:'flex', flexDirection:'column'}}>
-          <div>                                                                       
-            <p style={styles.titre}> <span style={styles.span}>Gender :</span> {'\u00A0'} {'\u00A0'} {gender}</p>  
-          </div>
       
-          <div>
-            <p style={styles.titre}> <span style={styles.span}>Probability :</span> {'\u00A0'} {'\u00A0'} {probability}</p>
+          <div>                                                                       
+            <p style={styles.titre}> <span style={styles.span}>Origin :</span> {'\u00A0'} {'\u00A0'} {origin}</p>  
           </div>
+  
       </div>
-           
-            <div style={{marginLeft:'50px'}}>
-            <p  style={styles.titre}> <span style={styles.span}>How</span> old are you ?</p>
-            <input
-            placeholder='32'
-            type="number"
-            style={styles.input}
-             onChange={(e) => setAge(e.target.value)} 
-             value={age}/>
-            </div>
             
      </div>
 
 
-{/* <Link to="/StepTwo" onClick={appel(age)} style={styles.button} className="btn btn-primary mt-5">Next</Link> */}
 
-<Link to="/StepTwo" onClick={()=> sendToStore(age)} style={styles.button} className="btn btn-primary mt-5">Next</Link>
+
+<Link to="/" style={styles.button} className="btn btn-primary mt-5">Back Home {'\u00A0'}   <FontAwesomeIcon icon={faHome}  style={{height:'17px'}}/></Link>
 
 </div>
     )
