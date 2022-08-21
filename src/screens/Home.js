@@ -4,22 +4,18 @@ import { useDispatch} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
-
 export default function Home() {
 
-    const [firstName, setFirstname] =  useState('')
-    const [lastName, setLastName] =  useState('')
-    const [error, setError] = useState('Input empty')
-    const [to, setTo] = useState('')
+    const [firstName, setFirstname] =  useState('') ;
+    const [lastName, setLastName] =  useState('') ;
+    const [error, setError] = useState('Input empty') ;
+    const [to, setTo] = useState('') ; 
     const dispatch = useDispatch() ;
 
+// ***************************** VERIF INPUT EMPY OR NOT ******************************** 
+function verif() {
 
-
-    function verif() {
-
-        if (lastName !== '' && firstName !== '') {
+        if (lastName.length > 1 && firstName.length > 1) {
         setError('')
         setTo('/StepOne')
         }else{
@@ -27,14 +23,9 @@ export default function Home() {
         setTo('/')
         }
     }
-
-
-
+// ***************************** FUNCTION ONCLICK ******************************** 
 
 function sendToStore(firstName,lastName) {   
-
-
-
 
     var essai = <p style={{color:'red'}}> Input empty </p>
   
@@ -47,23 +38,23 @@ function sendToStore(firstName,lastName) {
       lastName:lastName,
     }
    }) 
-//   return  setTo("/StepOne")
 
   }else{
-    console.log('oui');
     setError(essai)
-    // return setTo("/")
   }
 }
 
+// ***************************** RETURN BLOCK ******************************** 
 
     return (
-
         <div style={styles.container}>
         <div style={{display:'flex', flexDirection:'row'}}>
 
+                        {/* FORM - firsName */}
+
             <div  style={{marginRight:'50px'} }>
             <h3>FirstName</h3>
+
             <input
             placeholder='Jhon'
             style={styles.input}
@@ -73,9 +64,11 @@ function sendToStore(firstName,lastName) {
             }} 
              value={firstName}/>
             </div>
+                        {/* FORM - lastName */}
       
             <div style={{marginLeft:'50px'}}>
             <h3>LastName</h3>
+
             <input
             placeholder='Doe'
             style={styles.input}
@@ -86,16 +79,16 @@ function sendToStore(firstName,lastName) {
              value={lastName}/>
             </div>
         </div>
+                                                {/* LINK GO stepOne */}
         <Link to={to} onClick={()=> sendToStore(firstName,lastName)} style={styles.button} className="btn btn-primary mt-5"> Next</Link>
         {error}
 
-        
         </div>
 
-    
     );
    }
  
+// ***************************** STYLES BLOCK ******************************** 
 
    const styles = {
     container : {
@@ -111,7 +104,8 @@ function sendToStore(firstName,lastName) {
     },
 
     button : {
-        width: '150px'
+        width: '150px',
+        textDecoration: 'none'
     },
     input : {
 
