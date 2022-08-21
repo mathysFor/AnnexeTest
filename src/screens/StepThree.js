@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import 'rsuite/dist/rsuite.min.css';
 import { useSelector } from 'react-redux'; 
 import { Loader } from 'rsuite'
@@ -8,7 +8,7 @@ import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function StepOne() {
+export default function StepThree() {
 
 const [origin, setOrigin] = useState('');
 const [finish, setFinish] = useState('');
@@ -26,6 +26,13 @@ useEffect(() => {
     })(); 
   }, []);
 
+
+  // ***************************** CONTROL IF NAME IS DEFINED  ******************************** 
+
+  if (redux.saveUser.firstName  ===  undefined || redux.saveUser.lastName === undefined) {
+    return <Redirect to='/' />
+}
+
 // ***************************** CONTROL IF LOAD FINISH******************************** 
 
   if(!finish){
@@ -41,7 +48,7 @@ useEffect(() => {
 
 <div style={styles.container}>
                                                   {/* ICON GO BACK */}
-    <Link to="/" style={{position:'absolute',top:'40px',left:'40px'}}> <FontAwesomeIcon icon={faArrowCircleLeft}  style={{height:'40px'}}/> </Link>     
+    <Link to="/StepTwo" style={{position:'absolute',top:'40px',left:'40px'}}> <FontAwesomeIcon icon={faArrowCircleLeft}  style={{height:'40px'}}/> </Link>     
 
           <div>                                                                       
             <p style={styles.titre}> <span style={styles.span}>Origin :</span> {'\u00A0'} {'\u00A0'} {origin}</p>  
@@ -55,7 +62,7 @@ useEffect(() => {
 }
 
 
-// ***************************** STYLE BLOCK ******************************** 
+// ***************************** STYLES BLOCK ******************************** 
 
    const styles = {
   
@@ -91,6 +98,8 @@ useEffect(() => {
     },
 
     button : {
-        width: '150px'
+        width: '150px',
+        textDecoration: 'none'
+
     },
    }

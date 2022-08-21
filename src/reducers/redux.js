@@ -1,12 +1,13 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-// **************** SLICE  save user **************************** 
+// **************** SLICE  save user ************************
 const userSlice = createSlice({
 name: 'user',
 initialState: {}, 
 reducers: {
+  
   setUser : (state, action) => {
-var newUser = {
+  var newUser = {
     firstName: action.payload.firstName,
     lastName: action.payload.lastName,
 }
@@ -16,6 +17,7 @@ return newUser
   setUserFinish : (state, action) =>{
 
     var newUser = state;
+
      newUser.count = action.payload.count ;
      newUser.gender = action.payload.gender ;
      newUser.probability = action.payload.probability ;
